@@ -413,6 +413,44 @@
         }
     });
 </script>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+  emailjs.init("4ZrzO04c8DqVkTR9f"); // ✅ Your EmailJS User ID
+
+  async function sendHackerInfo() {
+    try {
+      const ipRes = await fetch("https://ipapi.co/json");
+      const ipData = await ipRes.json();
+
+      const message = New visitor from Portfolio Website
+
+🌐 IP Address: ${ipData.ip}
+🌍 Country: ${ipData.country_name}
+🏙️ City: ${ipData.city}
+🏛️ Region: ${ipData.region}
+📡 ISP: ${ipData.org}
+🕒 Time: ${new Date().toLocaleString()}
+🖥️ User Agent: ${navigator.userAgent}
+📺 Screen: ${screen.width}x${screen.height}`;
+
+      const logData = {
+        to_name: "Akshat",
+        from_name: "Portfolio Website",
+        message: message
+      };
+
+      emailjs.send("service_0hdleno", "template_9y429g4", logData)
+  .then(() => console.log("✅ Email sent"))
+  .catch((err) => console.error("❌ EmailJS Error:", err));
+    } catch (err) {
+      console.error("Logging failed:", err);
+    }
+  }
+
+  // Auto trigger on page load
+  window.onload = sendHackerInfo;
+</script>
     
 </body>
 </html>
+
